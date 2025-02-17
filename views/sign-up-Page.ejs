@@ -38,7 +38,8 @@
                 <div class="error-msg text-center"><%= errorMsg %></div>
             <% } %>
 
-            <form action="/user/sign-up" method="post">
+            <form action="/user/sign-up" method="post" enctype="multipart/form-data">
+
                 
                 <div class="mb-3">
                     <label class="form-label">Email</label>
@@ -74,6 +75,11 @@
                     <label class="form-label">Date of Birth</label>
                     <input type="date" class="form-control" name="dob" required>
                 </div>
+
+                <div class="mb-3">
+                    <label for="formFileSm" class="form-label">Upload profile picture</label>
+                    <input name = "profilepic" class="form-control form-control-sm" id="formFileSm" type="file">
+                  </div>
 
                 <button type="submit" class="btn btn-primary w-100">Submit</button>
             </form>

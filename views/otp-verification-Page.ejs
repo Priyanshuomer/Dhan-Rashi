@@ -47,7 +47,7 @@
 
                 <p>Enter the OTP sent to <strong><%= email %></strong></p>
 
-                <form method="post" action="/user/generate-otp?email=<%= email %>&password=<%= password %>&pin=<%= pin %>&dob=<%= dob %>&full_name=<%= full_name %>&mobile=<%= mobile %>&aadhar=<%= aadhar %>">
+                <form method="post" action="/user/generate-otp?email=<%= email %>&password=<%= password %>&pin=<%= pin %>&dob=<%= dob %>&full_name=<%= full_name %>&mobile=<%= mobile %>&aadhar=<%= aadhar %>&filePath=<%= locals.filePath %>">
                     
                     <div class="mb-3">
                         <input name="otp" type="text" class="form-control text-center" required placeholder="Enter OTP">
@@ -57,7 +57,7 @@
                 </form>
 
                 <div class="mt-3">
-                    <a id="resend-otp" href="/user/generate-otp?email=<%= email %>&password=<%= password %>&pin=<%= pin %>&dob=<%= dob %>&full_name=<%= full_name %>&mobile=<%= mobile %>&aadhar=<%= aadhar %>">
+                    <a id="resend-otp" href="/user/generate-otp?email=<%= email %>&password=<%= password %>&pin=<%= pin %>&dob=<%= dob %>&full_name=<%= full_name %>&mobile=<%= mobile %>&aadhar=<%= aadhar %>&filePath=<%= locals.filePath %>">
                         Resend OTP to <%= email %>
                     </a>
                 </div>

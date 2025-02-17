@@ -22,7 +22,9 @@ const app = express();
 
 console.log(`http://localhost:${PORT}/user/login`);
 
-app.use(express.urlencoded({ extended: true }));  // For form data
+app.use(express.urlencoded({extended:true}));
+app.use(express.static(path.resolve("./public")));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());  // For JSON data
 
 app.set("view engine","ejs");
@@ -56,7 +58,7 @@ app.use("/user",route);
 app.use("/transactions",routeTxn);
 app.use("/messages",routeMsg);
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT,() => {console.log(`Server started at ${PORT}`)});
 
