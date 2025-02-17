@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Change Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+         .err{
+            border: 1px solid rgb(246, 242, 242);
+            background-color: rgb(221, 230, 230);
+            color: rgb(10, 10, 10);
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 15px;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-light bg-white shadow-sm p-2">
+        <div class="container-fluid">
+            <a href="/user/" class="btn btn-sm btn-primary fw-bold ms-2">
+                🏠 Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Password Change Form -->
+    <% if (locals.user) { %>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Change Your Transaction Pin</h2>
+
+        <!-- Error Message Display -->
+        <% if (locals.errorMsg) { %>
+            <div class="alert err text-center mb-4">
+                <%= errorMsg %>
+            </div>
+        <% } %>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-4">
+                <form action="/transactions/change-pin" method="post" class="shadow p-4 bg-white rounded">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mobile" class="form-label">Mobile Number:</label>
+                        <input type="tel" name="mobile" id="mobile" class="form-control" placeholder="Enter your mobile number" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label">Full Name:</label>
+                        <input type="text" name="full_name" id="full_name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="aadhar" class="form-label">Aadhar Number:</label>
+                        <input type="text" name="aadhar" id="aadhar" class="form-control" placeholder="Enter Aadhar Number" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dob" class="form-label">DOB:</label>
+                        <input type="date" name="dob" id="dob" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pin" class="form-label">New Transaction Pin:</label>
+                        <input type="password" name="pin" id="pin" class="form-control" placeholder="Enter new pin" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Verify Details</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <% } else { %>
+        <div class="container mt-5 text-center">
+            <p>You are not logged in. Please <a href="/user/login" class="btn btn-link">Login here</a></p>
+        </div>
+    <% } %>
+
+</body>
+</html>
