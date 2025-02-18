@@ -303,12 +303,14 @@ route.post("/login",async (req,res) => {
 
 
 route.get("/about/:id",async (req,res) => {
-    if(req.params.id != req.user?._id)
-        return res.redirect("/user/login");
+    // if(req.params.id != req.user?._id)
+    //     return res.redirect("/user/login");
 
+    const showUser = await userModel.findById(req.params.id);
     const User = await userModel.findById(req.user._id);
     // const {errorMsg} = req.query;
-    res.render("user-about.ejs" , {user:User});
+    // console.log(User,showUser);
+    res.render("user-about.ejs" , {user:User,showUser});
 });
 
 

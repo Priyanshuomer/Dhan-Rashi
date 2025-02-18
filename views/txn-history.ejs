@@ -68,7 +68,7 @@
                                 <% for (let txn of txns) { %>
                                     <% if (locals.senderId) { %>
                                         <tr class="align-middle">
-                                            <% if (txn.from._id.toString() === senderId.toString()) { %>
+                                            <% if (txn.from?._id.toString() === senderId.toString()) { %>
                                                 <td class="text-center">
                                                     <span class="transaction-badge badge-sent">Sent</span>
                                                 </td>
@@ -98,7 +98,7 @@
                 <div class="text-center no-history">
                     <h4 class="text-muted">No Transaction History</h4>
                     <p class="text-secondary">You haven't made any transactions yet.</p>
-                    <a href="/" class="btn btn-primary mt-3">Go to Dashboard</a>
+                    <a href="/user/" class="btn btn-primary mt-3">Go to Dashboard</a>
                 </div>
             <% } %>
         <% } %>

@@ -32,11 +32,14 @@
         .user-info {
             display: flex;
             align-items: center;
+            gap: 12px;
         }
-        .user-icon {
-            font-size: 28px;
-            margin-right: 12px;
-            color: #007bff;
+        .user-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #007bff;
         }
         .btn-group {
             display: flex;
@@ -68,53 +71,58 @@
             </a>
         </div>
     </nav>
-    
 
-<div class="container">
-    <% if (locals.currUser) { %>
+    <div class="container">
+        <% if (locals.currUser) { %>
 
-        <% if (locals.users && users.length > 0) { %>
-            <h2 class="mb-4 text-center">Message & Transaction History</h2>
+            <% if (locals.users && users.length > 0) { %>
+                <h2 class="mb-4 text-center">Message & Transaction History</h2>
+
+                <% for(let user = 0; user < users.length; user++ ) { %>
+                    <div class="user-card">
+                        <a href="/user/about/<%= users[user]._id %>">
+                        <div class="user-info">
+                            <img src="<%= users[user].profilePhoto %>" 
+                                  class="user-img">
+                            <div>
+                                </a>
+                                <% if (users[user]._id == currUser._id) { %>
+                                    <strong>You</strong>
+                                <% } else { %>
+                                         <strong><%= users[user].full_name %></strong>
             
-            <% for(let user = 0; user < users.length; user++ ) { %>
-                <div class="user-card">
-                    <div class="user-info">
-                        <i class="fas fa-user user-icon"></i>
-                        <% if (users[user]._id == currUser._id) { %>
-                            <strong>You</strong>
-                        <% } else { %>
-                            <strong><%= users[user].full_name %></strong> 
-                            <small class="text-muted ms-2">(<%= users[user].mobile %>)</small>
-                        <% } %>
+                                    <small class="text-muted ms-2">(<%= users[user].mobile %>)</small>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <% if (users[user]._id != currUser._id) { %>
+                                <a href="/transactions/history/<%= users[user]._id %>" class="message-btn">
+                                    <i class="fas fa-history"></i> Transactions
+                                </a>
+                            <% } %>
+                            <a href="/messages/view/chat/<%= users[user]._id %>" class="message-btn">
+                                <i class="fas fa-comments"></i> Messages
+                            </a>
+                        </div>
                     </div>
-                    <div class="btn-group">
-                       <% if (users[user]._id != currUser._id) { %>
-                        <a href="/transactions/history/<%= users[user]._id %>" class="message-btn">
-                            <i class="fas fa-history"></i> Transactions
-                        </a>
-                       <% } %>
-                        <a href="/messages/view/chat/<%= users[user]._id %>" class="message-btn">
-                            <i class="fas fa-comments"></i> Messages
-                        </a>
-                    </div>
+                <% } %>
+
+            <% } else { %>
+                <div class="alert alert-warning text-center">
+                    <h4>No Message History Found</h4>
+                    <p>Start a conversation by sending a message.</p>
                 </div>
             <% } %>
 
         <% } else { %>
-            <div class="alert alert-warning text-center">
-                <h4>No Message History Found</h4>
-                <p>Start a conversation by sending a message.</p>
+            <div class="alert alert-danger text-center mt-5">
+                <h4>Please Login to See Your Messages</h4>
+                <a href="/user/login" class="btn btn-primary mt-2">Login Here</a>
             </div>
         <% } %>
+    </div>
 
-    <% } else { %>
-        <div class="alert alert-danger text-center mt-5">
-            <h4>Please Login to See Your Messages</h4>
-            <a href="/user/login" class="btn btn-primary mt-2">Login Here</a>
-        </div>
-    <% } %>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
