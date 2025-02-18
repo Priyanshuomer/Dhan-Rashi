@@ -13,7 +13,6 @@ const route = Router();
 
 route.get("/change-pin", (req,res) => {
   const errorMsg = req.query.errorMsg;
-  // console.log("Hello    ",req.query.errorMsg);
   res.render("change-pin.ejs",{errorMsg,user:req.user});
 });
 
@@ -34,25 +33,13 @@ route.post("/change-pin", async (req,res) => {
 
 
 route.get("/history/:id" , async(req,res) => {
-      
-  // const txns = await txnModel.find({
-  //   $or: [
-  //     { $and: [{ to: req.params.id }, { from: req.user?._id }] },
-  //     { $and: [{ from: req.user?._id }, { to: req.params.id }] }
-  //   ]
-  // })
-  // .populate("from")
-  // .populate("to");
 
-  // console.log("showw")
-
-  // console.log(txns);
 
   const userId = req.user._id.toString();
   const otherUserId = req.params.id.toString();
 
-  console.log("🔹 Logged-in User ID:", userId);
-  console.log("🔹 Viewing Transactions with User ID:", otherUserId);
+  // console.log("🔹 Logged-in User ID:", userId);
+  // console.log("🔹 Viewing Transactions with User ID:", otherUserId);
 
   const txns = await txnModel
     .find({
@@ -257,44 +244,6 @@ route.get("/othersrequest" , async(req,res) => {
       { $unwind: "$to" } // Convert array to object (if needed)
   ]);
   
-  console.log(requests);
-  
-
-
-
-  //   const requests = await requestModel.aggregate([
-  //     {
-  //         $match: {
-  //             $or: [
-  //                 { to: req.user._Id },
-  //                 { from: req.user._Id }
-  //             ]
-  //         }
-  //     },
-  //     {
-  //         $addFields: {
-  //             priority: { $cond: { if: { $eq: ["$pendingStatus", 0] }, then: 1, else: 0 } }
-  //         }
-  //     },
-  //     {
-  //         $sort: { priority: -1, createdAt: -1 }
-  //     }
-  // ]) 
-  //     .populate("from")
-  //    .populate("to");
-
-
-    //  const requests = await requestModel.find({
-    //    $or:[
-    //     {to : req.user._id} ,
-    //     {from : req.user._id}
-    //    ]
-    //  })
-    //   .populate("from")
-    //   .populate("to")
-    //     .sort({pendingStatus : 1})
-    //     .exec();
-    console.log(requests);
 
          res.render("othersrequest.ejs" , {requests , user : req.user , errorMsg});
 });

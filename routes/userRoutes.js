@@ -45,19 +45,18 @@ route.get("/generate-otp" , async (req,res) => {
     }
 
     // Generate a 6-digit OTP
-    console.log("Email :      ",process.env.EMAIL_PASS);
-
+   
     generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
         const transporter = nodemailer.createTransport({
             service: 'gmail', 
             auth: {
                 user: 'testapplication2710@gmail.com', // Your email
-                pass: process.env.EMAIL_PASS
+                pass: process.env.EMAIL_PASS || "abcd"
             }
         });
 
-        console.log("generatedOTP :      ",generatedOTP);
-        console.log(email);
+        console.log("generatedOTP is : ",generatedOTP);
+        // console.log(email);
 
 
         const mailOptions = {
@@ -69,11 +68,11 @@ route.get("/generate-otp" , async (req,res) => {
 
         try {
             await transporter.sendMail(mailOptions);
-            // console.log("OTP sent successfully");
+            console.log("OTP sent successfully");
             //  return 1;
             //  res.json({ message: `OTP sent to ${email}` });
         } catch (error) {
-             console.log("OTP Gen error ",error);
+            //  console.log("OTP Gen error ",error);
             let errorMsg = "Invalid Email.....";
             // res.status(500).json({ error: "Failed to send OTP" });
             return res.redirect(`/user/sign-up?errorMsg=${errorMsg}`)
@@ -92,8 +91,8 @@ route.post("/generate-otp", async (req, res) => {
  const {otp} = req.body;
 
  const {email ,dob,pin,filePath, password , full_name , aadhar , mobile , errorMsg} = req.query;
- console.log(filePath);
- console.log(email,pin,password,full_name,aadhar,dob);
+//  console.log(filePath);
+//  console.log(email,pin,password,full_name,aadhar,dob);
 
  if(otp == generatedOTP)
  {
@@ -141,7 +140,7 @@ route.post("/generate-otp", async (req, res) => {
               return res.redirect(`/transactions/change-pin?errorMsg=${errorMsg}`);
         }
 
-        console.log("pass passsowrd");
+      
      
 
     await userModel.create({
@@ -177,7 +176,7 @@ route.get("/sign-up",(req,res) => {
 
 route.post("/sign-up",upload.single("profilepic"), async (req,res) => {
     //    return res.end("hello");
-      console.log(req.file);
+    //   console.log(req.file);
 
     const {email,password,full_name,aadhar,pin,dob ,profilepic, mobile , errorMsg} = req.body;
     //   console.log(email,password,full_name,aadhar,mobile);
@@ -216,7 +215,7 @@ route.post("/sign-up",upload.single("profilepic"), async (req,res) => {
 
          let filePath = undefined;
          if(req.file)
-        filePath = path.join("/public", req.file.filename);
+        filePath = path.join("/profiles", req.file.filename);
 
         return res.redirect(`/user/generate-otp?email=${email}&mobile=${mobile}&password=${password}&full_name=${full_name}&aadhar=${aadhar}&pin=${pin}&dob=${dob}&filePath=${filePath}`);
                                                                                  
@@ -225,7 +224,7 @@ route.post("/sign-up",upload.single("profilepic"), async (req,res) => {
 
 route.get("/change-password", (req,res) => {
      const errorMsg = req.query.errorMsg;
-     console.log("Hello    ",req.query.errorMsg);
+    //  console.log("Hello    ",req.query.errorMsg);
      res.render("change-password.ejs",{errorMsg,user:req.user});
 });
 
@@ -265,14 +264,14 @@ route.post("/login",async (req,res) => {
         req.user = user;
         const User = await userModel.findById(user._id);
         req.dataUser = User;
-        console.log(User);
+        // console.log(User);
 
 
         const transporter = nodemailer.createTransport({
             service: 'gmail', 
             auth: {
                 user: 'testapplication2710@gmail.com', // Your email
-                pass: process.env.EMAIL_PASS
+                pass: process.env.EMAIL_PASS || "abcd"
             }
         });
     
@@ -301,14 +300,6 @@ route.post("/login",async (req,res) => {
     }
 });
 
-// route.get("/:id",async (req,res) => {
-//     if(req.params.id != req.user?._id)
-//         return res.redirect("/user/login");
-
-//     // console.log(req.user);
-//     /const {errorMsg} = req.query;
-  
-// });
 
 
 route.get("/about/:id",async (req,res) => {

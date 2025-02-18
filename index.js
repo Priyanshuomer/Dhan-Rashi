@@ -13,14 +13,14 @@ const {checkUserAuthentication} = require("./middlewares/token.js");
 
 require('dotenv').config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8500;
 const app = express();
 
 
 
 
 
-console.log(`http://localhost:${PORT}/user/login`);
+console.log(`http://localhost:${PORT}/user/`);
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.resolve("./public")));
@@ -31,20 +31,8 @@ app.set("view engine","ejs");
 app.set("views", path.resolve("./views"));
 
 
-mongo.connect(process.env.DB_URL)
+mongo.connect(process.env.DB_URL || "abcd")
 .then( () => {console.log("Database connected successfully")});
-
-
-// const httpServer = createServer(app);
-// const io = new Server(httpServer);
-
-// io.on("connection", (socket) => {
-//     console.log("A user connected");
-  
-//     socket.on("disconnect", () => {
-//       console.log("A user disconnected");
-//     });
-//   });
 
 
 
@@ -57,8 +45,6 @@ app.use(checkUserAuthentication("uid"));
 app.use("/user",route);
 app.use("/transactions",routeTxn);
 app.use("/messages",routeMsg);
-
-// app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT,() => {console.log(`Server started at ${PORT}`)});
 

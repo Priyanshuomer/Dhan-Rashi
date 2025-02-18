@@ -24,7 +24,7 @@ route.get("/all/chats", async (req,res) => {
           }).sort({ createdAt: 1 });
 
           const otherUser = await userModel.findById(otherUserId);
-          console.log(allMessages);
+          // console.log(allMessages);
 
           const {errorMsg} = req.query;
 
