@@ -140,9 +140,8 @@ route.post("/generate-otp", async (req, res) => {
               return res.redirect(`/transactions/change-pin?errorMsg=${errorMsg}`);
         }
 
-      
-     
-
+    
+ 
     await userModel.create({
       email , 
       password , 
@@ -213,7 +212,7 @@ route.post("/sign-up",upload.single("profilepic"), async (req,res) => {
             return res.redirect(`user/sign-up?errorMsg=${encodeURIComponent(error)}`)
          }
 
-         let filePath = undefined;
+         let filePath = "https://cdn3.iconfinder.com/data/icons/avatars-flat/33/man_5-1024.png";
          if(req.file)
         filePath = path.join("/profiles", req.file.filename);
 
