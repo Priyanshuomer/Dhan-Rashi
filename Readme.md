@@ -4,8 +4,6 @@
 
 ---
 
-
- <a href="http://localhost:8500/user/"><h2>"http://localhost:8500/user/"</h2></a>
 A secure **fake money transfer** web application built using **Node.js, Express, and EJS**. This project simulates transactions between users while ensuring security through authentication, encryption, and email notifications.  
 
 ---
@@ -68,6 +66,7 @@ A secure **fake money transfer** web application built using **Node.js, Express,
     node index.js
     ```
 
+ <a href="http://localhost:8500/user/"><h4>"http://localhost:8500/user/"</h4></a>
 
 ### 3️⃣ Set Up Environment Variables
 
